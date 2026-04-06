@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>React Basic Example</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f2f6fc;
+            margin-top: 50px;
+        }
+
+        .container {
+            background: white;
+            padding: 25px;
+            width: 320px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h3 {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function GradeCalculator() {
+
+    // Multiple states
+    const [sub1, setSub1] = React.useState("");
+    const [sub2, setSub2] = React.useState("");
+    const [sub3, setSub3] = React.useState("");
+    const [average, setAverage] = React.useState(0);
+    const [grade, setGrade] = React.useState("");
+
+    // Calculate Grade
+    const calculateGrade = () => {
+        const avg = (Number(sub1) + Number(sub2) + Number(sub3)) / 3;
+        setAverage(avg.toFixed(2));
+
+        let result = "";
+
+        if (avg >= 90) {
+            result = "A+";
+        } else if (avg >= 75) {
+            result = "A";
+        } else if (avg >= 60) {
+            result = "B";
+        } else if (avg >= 50) {
+            result = "C";
+        } else {
+            result = "F";
+        }
+
+        setGrade(result);
+    };
+
+    return (
+        <div className="container">
+
+            <h2>Grade Calculator</h2>
+
+            {/* Controlled Inputs */}
+            <input 
+                type="number" 
+                placeholder="Subject 1 Marks"
+                value={sub1}
+                onChange={(e) => setSub1(e.target.value)}
+            />
+
+            <input 
+                type="number" 
+                placeholder="Subject 2 Marks"
+                value={sub2}
+                onChange={(e) => setSub2(e.target.value)}
+            />
+
+            <input 
+                type="number" 
+                placeholder="Subject 3 Marks"
+                value={sub3}
+                onChange={(e) => setSub3(e.target.value)}
+            />
+
+            {/* Button */}
+            <button onClick={calculateGrade}>
+                Calculate Grade
+            </button>
+
+            {/* Output */}
+            <h3>Average: {average}</h3>
+            <h3>Grade: {grade}</h3>
+
+        </div>
+    );
+}
+
+// Render
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<GradeCalculator />);
+
+</script>
+
+<!-- Footer -->
+<p><b>Name: G.V S N Santosh<br>Reg no: 24BCT0297</b></p>
+
+</body>
+</html>
